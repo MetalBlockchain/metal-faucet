@@ -1,29 +1,24 @@
-# Avalanche Subnet Faucet
+# Metal Blockchain Subnet Faucet
 
 Right now there are thousands of networks and chains in the blockchain space, each with its capabilities and use-cases. And each network requires native coins to do any transaction on them, which can have a monetary value as well. These coins can be collected through centralized exchanges, token sales, etc in exchange for some monetary assets like USD.
 
 But we cannot risk our funds on the network or on any applications hosted on that network, without testing them first. So, these networks often have test networks or testnets, where the native coins do not have any monetary value, and thus can be obtained freely through faucets. 
 
-These testnets are often the testbeds for any new native feature of the network itself, or any dApp or [Subnet](https://www.avax.network/subnets) that is going live on the main network (mainnet). For example, [Fuji](https://docs.avax.network/quickstart/fuji-workflow) network is the testnet for Avalanche's mainnet.
+These testnets are often the testbeds for any new native feature of the network itself, or any dApp or [Subnet](https://docs.metalblockchain.org/subnets) that is going live on the main network (mainnet). For example, [Tahoe](https://docs.metalblockchain.org/quickstart/tahoe-workflow) network is the testnet for Metal Blockchain's mainnet.
 
-Besides Fuji Testnet, [Avalanche Faucet](https://faucet.avax.network/) can be used to get free coins on these testnets Subnets like -
-* [WAGMI Testnet](https://faucet.avax.network?subnet=wagmi)
-* [DeFI Kingdoms Testnet](https://faucet.avax.network?subnet=dfk)
-* [Dexalot Testnet](https://faucet.avax.network?subnet=dexalot) and many more.
-
-You can use this [repository](https://github.com/ava-labs/avalanche-faucet) to deploy your faucet or just make a PR with the [configurations](https://github.com/ava-labs/avalanche-faucet/blob/main/config.json) of the Subnet. This faucet comes with many features like multiple chain support, custom rate-limiting per Subnet, captcha verification, and concurrent transaction handling.
+You can use this [repository](https://github.com/metalblockchain/metal-faucet) to deploy your faucet or just make a PR with the [configurations](https://github.com/metalblockchain/metal-faucet/blob/main/config.json) of the Subnet. This faucet comes with many features like multiple chain support, custom rate-limiting per Subnet, captcha verification, and concurrent transaction handling.
 
 ## TL;DR
 
-A [Faucet](https://faucet.avax.network/) powered by Avalanche for Fuji Network and other Subnets. You can -
+A [Faucet](https://faucet.metalblockchain.org/) powered by Metal Blockchain for Tahoe Network and other Subnets. You can -
 
 * Request test coins for the supported Subnets
-* Integrate your EVM Subnet with the faucet by making a PR with the [chain configurations](https://github.com/ava-labs/avalanche-faucet/blob/main/config.json)
-* Fork the [repository](https://github.com/ava-labs/avalanche-faucet) to deploy your faucet for any EVM chain
+* Integrate your EVM Subnet with the faucet by making a PR with the [chain configurations](https://github.com/metalblockchain/metal-faucet/blob/main/config.json)
+* Fork the [repository](https://github.com/metalblockchain/metal-faucet) to deploy your faucet for any EVM chain
 
 ## Adding a New Subnet
 
-You can also integrate a new Subnet on the live [faucet](https://faucet.avax.network) with just a few lines of configuration parameters. All you have to do is make a PR on the [Avalanche Faucet](https://github.com/ava-labs/avalanche-faucet) git repository with the Subnet's information. The following parameters are required.
+You can also integrate a new Subnet on the live [faucet](https://faucet.metalblockchain.org) with just a few lines of configuration parameters. All you have to do is make a PR on the [Metal Blockchain Faucet](https://github.com/metalblockchain/metal-faucet) git repository with the Subnet's information. The following parameters are required.
 
 ```json
 {
@@ -56,11 +51,11 @@ You can also integrate a new Subnet on the live [faucet](https://faucet.avax.net
 * **RECALIBRATE** *(optional)* - Number of seconds after which the nonce and balance will recalibrate
 * **RATELIMIT** - Number of times (MAX_LIMIT) to allow per user within the WINDOW_SIZE (in minutes)
 
-Add the configuration in the array of `evmchains` inside the [config.json](https://github.com/ava-labs/avalanche-faucet/blob/main/config.json) file and make a PR.
+Add the configuration in the array of `evmchains` inside the [config.json](https://github.com/metalblockchain/metal-faucet/blob/main/config.json) file and make a PR.
 
 ## Building and Deploying a Faucet
 
-You can also deploy and build your faucet by using the [Avalanche Faucet](https://github.com/ava-labs/avalanche-faucet) repository.
+You can also deploy and build your faucet by using the [Metal Blockchain Faucet](https://github.com/metalblockchain/metal-faucet) repository.
 
 ### Requirements
 
@@ -73,7 +68,7 @@ You can also deploy and build your faucet by using the [Avalanche Faucet](https:
 Clone this repository at your preferred location.
 
 ```bash
-git clone https://github.com/ava-labs/avalanche-faucet
+git clone https://github.com/metalblockchain/metal-faucet
 ```
 
 ### Client Side Configurations
@@ -113,7 +108,6 @@ If you have funds on the same address on every chain, then you can specify them 
 
 ```env
 C="C chain private key"
-WAGMI="Wagmi chain private key"
 PK="Sender Private Key with Funds in it"
 CAPTCHA_SECRET="Google ReCaptcha Secret"
 ```
@@ -121,18 +115,18 @@ CAPTCHA_SECRET="Google ReCaptcha Secret"
 
 #### Setup EVM Chain Configurations
 
-You can create a faucet server for any EVM chain by making changes in the `config.json` file. Add your chain configuration as shown below in the `evmchains` object. Configuration for Fuji's C-Chain and WAGMI chain is shown below for example.
+You can create a faucet server for any EVM chain by making changes in the `config.json` file. Add your chain configuration as shown below in the `evmchains` object. Configuration for Tahoe's C-Chain chain is shown below for example.
 
 ```json
 "evmchains": [
     {
         "ID": "C",
-        "NAME": "Fuji (C-Chain)",
-        "TOKEN": "AVAX",
-        "RPC": "https://api.avax-test.network/ext/C/rpc",
+        "NAME": "Tahoe (C-Chain)",
+        "TOKEN": "METAL",
+        "RPC": "https://tahoe.metalblockchain.org/ext/C/rpc",
         "CHAINID": 43113,
-        "EXPLORER": "https://testnet.snowtrace.io",
-        "IMAGE": "/avaxred.png",
+        "EXPLORER": "https://tahoe-explorer.metalblockchain.org",
+        "IMAGE": "/metal_icon_circle.svg",
         "MAX_PRIORITY_FEE": "2000000000",
         "MAX_FEE": "100000000000",
         "DRIP_AMOUNT": 2000000000,
@@ -141,28 +135,12 @@ You can create a faucet server for any EVM chain by making changes in the `confi
             "MAX_LIMIT": 1,
             "WINDOW_SIZE": 1440
         }
-    },
-    {
-        "ID": "WAGMI",
-        "NAME": "WAGMI Testnet",
-        "TOKEN": "WGM",
-        "RPC": "https://subnets.avax.network/wagmi/wagmi-chain-testnet/rpc",
-        "CHAINID": 11111,
-        "EXPLORER": "https://subnets.avax.network/wagmi/wagmi-chain-testnet/explorer",
-        "IMAGE": "/wagmi.png",
-        "MAX_PRIORITY_FEE": "2000000000",
-        "MAX_FEE": "100000000000",
-        "DRIP_AMOUNT": 2000000000,
-        "RATELIMIT": {
-            "MAX_LIMIT": 1,
-            "WINDOW_SIZE": 1440
-        }
     }
 ]
 ```
-In the above configuration drip amount is in `nAVAX` or `gwei`, whereas fees are in `wei`. For example, with the above configurations, the faucet will send `1 AVAX` with maximum fees per gas being `100 nAVAX` and priority fee as `2 nAVAX`.
+In the above configuration drip amount is in `nMETAL` or `gwei`, whereas fees are in `wei`. For example, with the above configurations, the faucet will send `1 METAL` with maximum fees per gas being `100 nMETAL` and priority fee as `2 nMETAL`.
 
-The rate limiter for C Chain will only accept 1 request in 60 minutes for a particular API and 2 requests in 60 minutes for the WAGMI chain. Though it will skip any failed requests so that users can request tokens again, even if there is some internal error in the application. On the other hand, the global rate limiter will allow 15 requests per minute on every API. This time failed requests will also get counted so that no one can abuse the APIs.
+The rate limiter for C Chain will only accept 1 request in 60 minutes for a particular API. Though it will skip any failed requests so that users can request tokens again, even if there is some internal error in the application. On the other hand, the global rate limiter will allow 15 requests per minute on every API. This time failed requests will also get counted so that no one can abuse the APIs.
 
 ### API Endpoints
 
@@ -225,7 +203,7 @@ Send token API requires a Captcha response token that is generated using the Cap
 
 ```bash
 {
-    "message": "Transaction successful on Avalanche C Chain!",
+    "message": "Transaction successful on Metal Blockchain C Chain!",
     "txHash": "0x3d1f1c3facf59c5cd7d6937b3b727d047a1e664f52834daf20b0555e89fc8317"
 }
 ```
@@ -253,7 +231,7 @@ The IPs of all the proxies that the request has hopped through are stuffed insid
 
 The proxies that are set up by the owner of the server (reverse-proxies) are the trusted proxies on which we can rely and know that they have stuffed the actual IP of the requesters in between. Any proxy that is not set up by the server, should be considered an untrusted proxy. So, we can jump to the IP address added by the last proxy that we trust. The number of jumps that we want can be configured in the `config.json` file inside the `GLOBAL_RL` object.
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-5.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-5.png)
 
 
 
@@ -261,14 +239,14 @@ The proxies that are set up by the owner of the server (reverse-proxies) are the
 
 Consider the below diagram. The server is set up with 2 reverse proxies. If the client is behind proxies, then we cannot get the client's actual IP, and instead will consider the proxy's IP as the client's IP. And if some other client is behind the same proxy, then those clients will be considered as a single entity and might get rate-limited faster.
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-6.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-6.png)
 
 
 Therefore it is advised to the users, to avoid using any proxy for accessing applications that have critical rate limits, like this faucet.
 
 #### Wrong Number of Reverse Proxies
 
-So, if you want to deploy this faucet, and have some reverse proxies in between, then you should configure this inside the `GLOBAL_RL` key of the `config.json` file. If this is not configured properly, then the users might get rate-limited very frequently, since the server-side proxy's IP addresses are being viewed as the client's IP. You can verify this in the code [here](https://github.com/ava-labs/avalanche-faucet/blob/23eb300635b64130bc9ce10d9e894f0a0b3d81ea/middlewares/rateLimiter.ts#L25).
+So, if you want to deploy this faucet, and have some reverse proxies in between, then you should configure this inside the `GLOBAL_RL` key of the `config.json` file. If this is not configured properly, then the users might get rate-limited very frequently, since the server-side proxy's IP addresses are being viewed as the client's IP. You can verify this in the code [here](https://github.com/metalblockchain/metal-faucet/blob/23eb300635b64130bc9ce10d9e894f0a0b3d81ea/middlewares/rateLimiter.ts#L25).
 
 ```json
 "GLOBAL_RL": {
@@ -278,14 +256,14 @@ So, if you want to deploy this faucet, and have some reverse proxies in between,
         ...
 ```
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-7.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-7.png)
 
 
 It is also quite common to have Cloudflare as the last reverse proxy or the exposed server. Cloudflare provides a header **cf-connecting-ip** which is the IP of the client that requested the faucet and hence Cloudflare. We are using this as default.
 
 ### Captcha Verification
 
-Captcha is required to prove the user is a human and not a bot. For this purpose, we will use [Google's Recaptcha](https://www.google.com/recaptcha/intro/v3.html). The server side will require `CAPTCHA_SECRET` that should not be exposed. You can set the threshold score to pass the captcha test by the users [here](https://github.com/ava-labs/avalanche-faucet/blob/23eb300635b64130bc9ce10d9e894f0a0b3d81ea/middlewares/verifyCaptcha.ts#L20).
+Captcha is required to prove the user is a human and not a bot. For this purpose, we will use [Google's Recaptcha](https://www.google.com/recaptcha/intro/v3.html). The server side will require `CAPTCHA_SECRET` that should not be exposed. You can set the threshold score to pass the captcha test by the users [here](https://github.com/metalblockchain/metal-faucet/blob/23eb300635b64130bc9ce10d9e894f0a0b3d81ea/middlewares/verifyCaptcha.ts#L20).
 
 You can disable these Captcha verifications and rate limiters for testing the purpose, by tweaking in the `server.ts` file.
 
@@ -384,33 +362,33 @@ docker start faucet-container
 
 Using the faucet is quite straightforward, but for the sake of completeness, let's go through the steps, to collect your first test coins.
 
-### Visit Avalanche Faucet Website
+### Visit Metal Blockchain Faucet Website
 
-Go to https://faucet.avax.network. You will see various network parameters like network name, faucet balance, drop amount, drop limit, faucet address, etc.
+Go to https://faucet.metalblockchain.org. You will see various network parameters like network name, faucet balance, drop amount, drop limit, faucet address, etc.
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-1.jpeg)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-1.jpeg)
 
 ### Select Network
 
 You can use the dropdown to select the network of your choice and get some free coins (each network may have a different drop amount).
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-2.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-2.png)
 
 ### Put Address and Request Coins
 
 Put your wallet address where you want to get a drop, and click the **Request** button. Within a second, you will get a **transaction hash** for the processed transaction. The hash would be a hyperlink to Subnet's explorer. You can see the transaction status, by clicking on that hyperlink.
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-3.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-3.png)
 
 ### More Interactions
 
 This is not just it. Using the buttons shown below, you can go to the Subnet explorer or add the Subnet to your browser wallet extensions like Metamask with a single click.
 
-![](https://raw.githubusercontent.com/ava-labs/avalanche-docs/master/static/img/faucet-4.png)
+![](https://raw.githubusercontent.com/metalblockchain/metal-docs/master/static/img/faucet-4.png)
 
 ### Probable Errors and Troubleshooting
 
-Errors are not expected, but if you are facing some of the errors shown, then you could try troubleshooting as shown below. If none of the troubleshooting works, reach us through [Discord](https://discord.com/channels/578992315641626624/).
+Errors are not expected, but if you are facing some of the errors shown, then you could try troubleshooting as shown below. If none of the troubleshooting works, reach us through [Discord](https://discord.com/channels/360460943378874381/).
 
 * **Too many requests. Please try again after X minutes**
 This is a rate-limiting message. Every Subnet can set its drop limits. The above message suggests that you have reached your drop limit i.e. the number of times you could request coins within the window of X minutes. You should try requesting after X minutes. If you are facing this problem, even when you are requesting for the first time in the window, you may be behind some proxy, WiFi, or VPN service that is also being used by some other user.
@@ -422,7 +400,7 @@ We are using v3 of [Google's ReCaptcha](https://developers.google.com/recaptcha/
 This is an internal error in the Subnet's node, on which we are making an RPC for sending transactions. A regular check will update the RPC's health status every 30 seconds (default) or whatever is set in the configuration. This may happen only in rare scenarios and you cannot do much about it, rather than waiting.
 
 * **Timeout of 10000ms exceeded**
-There could be many reasons for this message. It could be an internal server error, or the request didn't receive by the server, slow internet, etc. You could try again after some time, and if the problem persists, then you should raise this issue on our [Discord](https://discord.com/channels/578992315641626624/) server.
+There could be many reasons for this message. It could be an internal server error, or the request didn't receive by the server, slow internet, etc. You could try again after some time, and if the problem persists, then you should raise this issue on our [Discord](https://discord.com/channels/360460943378874381/) server.
 
 * **Couldn't see any transaction status on explorer**
-The transaction hash that you get for each drop is pre-computed using the expected nonce, amount, and receiver's address. Though transactions on Avalanche are near-instant, the explorer may take time to index those transactions. You should wait for a few more seconds, before raising any issue or reaching out to us.
+The transaction hash that you get for each drop is pre-computed using the expected nonce, amount, and receiver's address. Though transactions on Metal Blockchain are near-instant, the explorer may take time to index those transactions. You should wait for a few more seconds, before raising any issue or reaching out to us.

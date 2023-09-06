@@ -1,6 +1,6 @@
 FROM node:18.2.0
 
-WORKDIR /avalanche-faucet
+WORKDIR /metal-faucet
 
 COPY . .
 
